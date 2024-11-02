@@ -24,33 +24,8 @@ configureGenkit({
   enableTracingAndMetrics: true,
 });
 
-// Define a simple flow that prompts an LLM to generate menu suggestions.
-export const menuSuggestionFlow = defineFlow(
-  {
-    name: 'menuSuggestionFlow',
-    inputSchema: z.string(),
-    outputSchema: z.string(),
-  },
-  async (subject) => {
-		// Construct a request and send it to the model API.
-    const llmResponse = await generate({
-      prompt: `Suggest an item for the menu of a ${subject} themed restaurant`,
-      model: gemini15Flash,
-      config: {
-        temperature: 1,
-      },
-    });
-
-		// Handle the response from the model API. In this sample, we just convert
-    // it to a string, but more complicated flows might coerce the response into
-    // structured output or chain the response into another LLM call, etc.
-    return llmResponse.text();
-  }
-);
-
-//get base64 and exreact the text
-export const textExtractionFlow = defineFlow({
-  name: 'textExtractionFlow',
+export const assistanceFlow = defineFlow({
+  name: 'assistanceFlow',
   inputSchema: z.string(),
   outputSchema: z.string(),
 },
